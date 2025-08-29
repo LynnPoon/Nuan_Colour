@@ -1,263 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
-  <%- include('partials/head.ejs') %>
-  <body class="min-h-screen flex flex-col bg-black">
-    <%- include('partials/nav.ejs') %>
+<%- include('partials/head.ejs') %>
 
-    <main class="flex flex-grow">
-      <% if (successMessage) { %>
-      <div
-        class="fixed top-1 md:top-17 left-1/2 transform -translate-x-1/2 z-50"
-      >
-        <div
-          id="msg"
-          class="flex items-center gap-x-2 bg-black afacad-flux text-white px-4 py-2 rounded-3xl text-center shadow-xl motion-translate-y-out-75 motion-opacity-in-0 transition-opacity duration-500 opacity-100"
-        >
-          <div>
-            <i class="fa-solid fa-circle-check text-white"></i>
-          </div>
-          <div>Form successfully submitted!</div>
+<body class="min-h-screen flex flex-col bg-black">
+  <%- include('partials/nav.ejs') %>
+
+  <main class="flex flex-grow">
+    <% if (successMessage) { %>
+    <div class="fixed top-1 md:top-17 left-1/2 transform -translate-x-1/2 z-50">
+      <div id="msg" class="flex items-center gap-x-2 bg-black afacad-flux text-white px-4 py-2 rounded-3xl text-center shadow-xl motion-translate-y-out-75 motion-opacity-in-0 transition-opacity duration-500 opacity-100">
+        <div>
+          <i class="fa-solid fa-circle-check text-white"></i>
         </div>
+        <div>Form successfully submitted!</div>
       </div>
-      <% } %>
+    </div>
+    <% } %>
 
-      <div
-        class="w-full mt-4 lg:max-w-7xl mx-auto px-10 py-10 flex flex-col lg:flex-row gap-8 bg-black"
-      >
-        <!-- Contact Info -->
-        <div class="lg:flex-1 motion-preset-fade motion-duration-1000">
-          <h2 class="bebas-neue-regular text-3xl text-pink-300 mb-4">
-            Contact Us
-          </h2>
-          <p class="afacad-flux text-gray-400 mb-4">
-            For further enquiries, please reach out to us through the channels
-            below or fill in the contact form. We will get back to you promptly.
-          </p>
-          <span class="afacad-flux text-gray-400"
-            ><i class="fa-solid fa-mobile mr-1"></i> (778) 871-6829</span
-          ><br />
-          <span class="afacad-flux text-gray-400"
-            ><i class="fa-solid fa-envelope mr-1"></i> info@nuancolour.com</span
-          >
-        </div>
+    <div class="w-full mt-4 lg:max-w-7xl mx-auto px-10 py-10 flex flex-col lg:flex-row gap-8 bg-black">
+      <!-- Contact Info -->
+      <div class="lg:flex-1 motion-preset-fade motion-duration-1000">
+        <h2 class="bebas-neue-regular text-3xl text-pink-300 mb-4">
+          Contact Us
+        </h2>
+        <p class="afacad-flux text-gray-400 mb-4">
+          For further enquiries, please reach out to us through the channels
+          below or fill in the contact form. We will get back to you promptly.
+        </p>
+        <span class="afacad-flux text-gray-400"><i class="fa-solid fa-mobile mr-1"></i> (778) 871-6829</span><br />
+        <span class="afacad-flux text-gray-400"><i class="fa-solid fa-envelope mr-1"></i> info@nuancolour.com</span>
+      </div>
 
-        <!-- Form -->
-        <div
-          class="lg:flex-1 bg-pink-50 p-6 rounded-3xl shadow-md lg:self-start motion-preset-fade motion-duration-1000"
-        >
-          <form action="/contact-us" method="post">
-            <!-- First Name -->
-            <div class="flex justify-between">
-              <div class="w-1/2 mr-2">
-                <div class="block">
-                  <label
-                    for="first_name"
-                    class="inline-block text-sm font-medium text-gray-700 afacad-flux"
-                    >First Name</label
-                  >
-                  <span class="text-xs text-gray-500 afacad-flux"
-                    >(required)</span
-                  >
-                </div>
-                <input
-                  type="text"
-                  id="first_name"
-                  name="first_name"
-                  value="<%= formData.first_name || '' %>"
-                  class="mt-1 mb-4 inline-block w-full rounded-lg bg-white border border-gray-200 shadow-sm focus:outline-none focus:shadow-sm focus:shadow-gray-500/40 transition afacad-flux text-gray-600 px-2"
-                  required
-                />
-                <% if (errors && errors.first_name){ %>
-                <span class="text-red-500 text-xs afacad-flux ml-2"
-                  ><%= errors.first_name.msg %></span
-                >
-                <% } %>
-              </div>
-
-              <div class="w-1/2 ml-2">
-                <div class="block">
-                  <label
-                    for="last_name"
-                    class="inline-block text-sm font-medium text-gray-700 afacad-flux"
-                    >Last Name</label
-                  >
-                  <span class="text-xs text-gray-500 afacad-flux"
-                    >(required)</span
-                  >
-                </div>
-                <input
-                  type="text"
-                  id="last_name"
-                  name="last_name"
-                  value="<%= formData.last_name || '' %>"
-                  class="mt-1 mb-4 inline-block w-full rounded-lg bg-white border border-gray-200 shadow-sm focus:outline-none focus:shadow-sm focus:shadow-gray-500/40 transition afacad-flux text-gray-600 px-2"
-                  required
-                />
-                <% if (errors && errors.last_name){ %>
-                <span class="text-red-500 text-xs afacad-flux ml-2"
-                  ><%= errors.last_name.msg %></span
-                >
-                <% } %>
-              </div>
-            </div>
-
-            <!-- Email -->
-            <div>
+      <!-- Form -->
+      <div class="lg:flex-1 bg-pink-50 p-6 rounded-3xl shadow-md lg:self-start motion-preset-fade motion-duration-1000">
+        <form id="contactForm" action="/contact-us" method="post">
+          <!-- First Name -->
+          <div class="flex justify-between">
+            <div class="w-1/2 mr-2">
               <div class="block">
-                <label
-                  for="email"
-                  class="inline-block text-sm font-medium text-gray-700 afacad-flux"
-                  >Email</label
-                >
-                <span class="text-xs text-gray-500 afacad-flux"
-                  >(required)</span
-                >
+                <label for="first_name" class="inline-block text-sm font-medium text-gray-700 afacad-flux">First Name</label>
+                <span class="text-xs text-gray-500 afacad-flux">(required)</span>
               </div>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value="<%= formData.email || '' %>"
-                class="mt-1 mb-1 inline-block w-full rounded-lg bg-white border border-gray-200 shadow-sm focus:outline-none focus:shadow-sm focus:shadow-gray-500/40 transition afacad-flux text-gray-600 px-2"
-                required
-              />
-              <% if (errors && errors.email){ %>
-              <span class="text-red-500 text-xs afacad-flux ml-2"
-                ><%= errors.email.msg %></span
-              >
+              <input type="text" id="first_name" name="first_name" value="<%= formData.first_name || '' %>" class="mt-1 mb-4 inline-block w-full rounded-lg bg-white border border-gray-200 shadow-sm focus:outline-none focus:shadow-sm focus:shadow-gray-500/40 transition afacad-flux text-gray-600 px-2" required />
+              <% if (errors && errors.first_name){ %>
+              <span class="text-red-500 text-xs afacad-flux ml-2"><%= errors.first_name.msg %></span>
               <% } %>
             </div>
 
-            <!-- Newsletter -->
-            <div class="flex items-center space-x-2 mb-4">
-              <input
-                type="checkbox"
-                id="newsletter"
-                name="newsletter"
-                value="true"
-                class="rounded"
-              />
-              <label for="newsletter" class="text-sm text-gray-700 afacad-flux"
-                >Sign up for news and updates</label
-              >
-            </div>
-
-            <!-- Phone -->
-            <div>
-              <label
-                for="phone"
-                class="block text-sm font-medium text-gray-700 afacad-flux"
-                >Phone</label
-              >
-              <input
-                type="tel"
-                id="phone"
-                name="phone"
-                value="<%= formData.phone || '' %>"
-                class="mt-1 mb-4 block w-4xs rounded-lg bg-white border border-gray-200 shadow-sm focus:outline-none focus:shadow-sm focus:shadow-gray-500/40 transition afacad-flux text-gray-600 px-2"
-              />
-            </div>
-
-            <!-- Services -->
-            <div>
-              <label class="block text-sm font-medium text-gray-700 afacad-flux"
-                >What services are you interested in?</label
-              >
-              <div
-                class="mt-1 mb-4 space-y-1 afacad-flux text-gray-500 text-sm"
-              >
-                <div class="flex items-center space-x-2">
-                  <input
-                    type="checkbox"
-                    id="private"
-                    name="service[]"
-                    value="private"
-                    class="rounded"
-                  />
-                  <label for="private">Private Session</label>
-                </div>
-                <div class="flex items-center space-x-2">
-                  <input
-                    type="checkbox"
-                    id="group"
-                    name="service[]"
-                    value="group"
-                    class="rounded"
-                  />
-                  <label for="group">Group Session</label>
-                </div>
-                <div class="flex items-center space-x-2">
-                  <input
-                    type="checkbox"
-                    id="partnership"
-                    name="service[]"
-                    value="partnership"
-                    class="rounded"
-                  />
-                  <label for="partnership">Partnership & Collaboration</label>
-                </div>
+            <div class="w-1/2 ml-2">
+              <div class="block">
+                <label for="last_name" class="inline-block text-sm font-medium text-gray-700 afacad-flux">Last Name</label>
+                <span class="text-xs text-gray-500 afacad-flux">(required)</span>
               </div>
+              <input type="text" id="last_name" name="last_name" value="<%= formData.last_name || '' %>" class="mt-1 mb-4 inline-block w-full rounded-lg bg-white border border-gray-200 shadow-sm focus:outline-none focus:shadow-sm focus:shadow-gray-500/40 transition afacad-flux text-gray-600 px-2" required />
+              <% if (errors && errors.last_name){ %>
+              <span class="text-red-500 text-xs afacad-flux ml-2"><%= errors.last_name.msg %></span>
+              <% } %>
             </div>
+          </div>
 
-            <!-- Referral -->
-            <div>
-              <label
-                for="referral"
-                class="block text-sm afacad-flux text-gray-700"
-                >How did you hear about us?</label
-              >
-              <select
-                id="referral"
-                name="referral"
-                class="mt-1 mb-4 block w-4xs rounded-lg bg-white border border-gray-200 shadow-sm focus:outline-none focus:shadow-gray-500/40 transition afacad-flux text-gray-500 px-2"
-              >
-                <option value="">Select an option</option>
-                <option value="search-engine">Search engine</option>
-                <option value="social-media">Social media</option>
-                <option value="word-of-mouth">Word of mouth</option>
-                <option value="returning-customer">
-                  Previously a customer
-                </option>
-              </select>
-            </div>
-
-            <!-- Message -->
-            <div>
-              <label
-                for="message"
-                class="inline-block text-sm font-medium text-gray-700 afacad-flux"
-                >Message</label
-              >
+          <!-- Email -->
+          <div>
+            <div class="block">
+              <label for="email" class="inline-block text-sm font-medium text-gray-700 afacad-flux">Email</label>
               <span class="text-xs text-gray-500 afacad-flux">(required)</span>
-              <textarea
-                id="message"
-                name="message"
-                rows="4"
-                class="mt-1 inline-block w-full rounded-lg bg-white border border-gray-200 shadow-sm focus:outline-none focus:shadow-sm focus:shadow-gray-500/40 transition afacad-flux text-gray-600 px-2"
-                required
-              >
-<%= formData.message || '' %></textarea
-              >
-              <% if (errors.message) { %>
-              <span class="text-red-500 text-xs afacad-flux"
-                ><%= errors.message.msg %></span
-              >
-              <% } %>
             </div>
+            <input type="email" id="email" name="email" value="<%= formData.email || '' %>" class="mt-1 mb-1 inline-block w-full rounded-lg bg-white border border-gray-200 shadow-sm focus:outline-none focus:shadow-sm focus:shadow-gray-500/40 transition afacad-flux text-gray-600 px-2" required />
+            <% if (errors && errors.email){ %>
+            <span class="text-red-500 text-xs afacad-flux ml-2"><%= errors.email.msg %></span>
+            <% } %>
+          </div>
 
-            <!-- Submit -->
-            <div>
-              <button
-                type="submit"
-                class="w-full mt-4 py-2 px-4 bg-black text-white rounded-xl hover:bg-pink-200 hover:text-black transition afacad-flux-bold"
-              >
-                Submit
-              </button>
+          <!-- Newsletter -->
+          <div class="flex items-center space-x-2 mb-4">
+            <input type="checkbox" id="newsletter" name="newsletter" value="true" class="rounded" />
+            <label for="newsletter" class="text-sm text-gray-700 afacad-flux">Sign up for news and updates</label>
+          </div>
+
+          <!-- Phone -->
+          <div>
+            <label for="phone" class="block text-sm font-medium text-gray-700 afacad-flux">Phone</label>
+            <input type="tel" id="phone" name="phone" value="<%= formData.phone || '' %>" class="mt-1 mb-4 block w-4xs rounded-lg bg-white border border-gray-200 shadow-sm focus:outline-none focus:shadow-sm focus:shadow-gray-500/40 transition afacad-flux text-gray-600 px-2" />
+          </div>
+
+          <!-- Services -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 afacad-flux">What services are you interested in?</label>
+            <div class="mt-1 mb-4 space-y-1 afacad-flux text-gray-500 text-sm">
+              <div class="flex items-center space-x-2">
+                <input type="checkbox" id="private" name="service[]" value="private" class="rounded" />
+                <label for="private">Private Session</label>
+              </div>
+              <div class="flex items-center space-x-2">
+                <input type="checkbox" id="group" name="service[]" value="group" class="rounded" />
+                <label for="group">Group Session</label>
+              </div>
+              <div class="flex items-center space-x-2">
+                <input type="checkbox" id="partnership" name="service[]" value="partnership" class="rounded" />
+                <label for="partnership">Partnership & Collaboration</label>
+              </div>
             </div>
-          </form>
-        </div>
+          </div>
+
+          <!-- Referral -->
+          <div>
+            <label for="referral" class="block text-sm afacad-flux text-gray-700">How did you hear about us?</label>
+            <select id="referral" name="referral" class="mt-1 mb-4 block w-4xs rounded-lg bg-white border border-gray-200 shadow-sm focus:outline-none focus:shadow-gray-500/40 transition afacad-flux text-gray-500 px-2">
+              <option value="">Select an option</option>
+              <option value="search-engine">Search engine</option>
+              <option value="social-media">Social media</option>
+              <option value="word-of-mouth">Word of mouth</option>
+              <option value="returning-customer">
+                Previously a customer
+              </option>
+            </select>
+          </div>
+
+          <!-- Message -->
+          <div>
+            <label for="message" class="inline-block text-sm font-medium text-gray-700 afacad-flux">Message</label>
+            <span class="text-xs text-gray-500 afacad-flux">(required)</span>
+            <textarea id="message" name="message" rows="4" class="mt-1 inline-block w-full rounded-lg bg-white border border-gray-200 shadow-sm focus:outline-none focus:shadow-sm focus:shadow-gray-500/40 transition afacad-flux text-gray-600 px-2" required>
+<%= formData.message || '' %></textarea>
+            <% if (errors.message) { %>
+            <span class="text-red-500 text-xs afacad-flux"><%= errors.message.msg %></span>
+            <% } %>
+          </div>
+
+          <!-- Submit -->
+          <div>
+            <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
+            <button type="submit" class="w-full mt-4 py-2 px-4 bg-black text-white rounded-xl hover:bg-pink-200 hover:text-black transition afacad-flux-bold">
+              Submit
+            </button>
+          </div>
+        </form>
       </div>
-    </main>
-    <%- include('partials/footer.ejs') %>
-  </body>
+    </div>
+  </main>
+  <%- include('partials/footer.ejs') %>
+  <script>
+    const form = document.getElementById("contactForm");
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      grecaptcha.ready(function() {
+        grecaptcha.execute("<%= siteKey %>", {
+            action: "submit"
+          })
+          .then(function(token) {
+            document.getElementById("g-recaptcha-response").value = token;
+            form.submit();
+          });
+      });
+    });
+  </script>
+</body>
+
 </html>
