@@ -22,5 +22,7 @@
 
   <script src="/script.js" defer></script>
 
+  <% if (typeof siteKey !== 'undefined' && siteKey) { %>
   <script src="https://www.google.com/recaptcha/api.js?render=<%= siteKey %>"></script>
+  <% } %>
 </head>

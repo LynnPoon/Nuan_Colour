@@ -127,6 +127,16 @@
             <% } %>
           </div>
 
+          <!-- reCAPTCHA Error Display -->
+          <% if (errors && errors.captcha) { %>
+          <div class="mt-4 text-red-700 rounded-lg afacad-flux">
+            <div class="flex items-center">
+              <i class="fa-solid fa-exclamation-triangle mr-2"></i>
+              <span><%= errors.captcha.msg %></span>
+            </div>
+          </div>
+          <% } %>
+
           <!-- Submit -->
           <div>
             <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
